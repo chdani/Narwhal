@@ -1,0 +1,55 @@
+version: '2.0'
+services:
+  database:
+    build: Narwhal.Database
+    ports:
+    - "27017:27017"
+    volumes:
+    - .\Playground\Database:/data/db
+  messaging:
+    build: Narwhal.Messaging
+    ports:
+    - "1883:1883"
+  service:
+    build: Narwhal.Service
+    ports:
+    - "6161:80"
+    environment:
+    - DATABASE_HOST=database
+    - MESSAGEQUEUE_HOST=messaging
+    links:
+    - database
+    - messaging
+  app:
+    build: Narwhal.App
+    ports:
+    - "6162:6162"
+    environment:
+    - SERVICE_URL=http://front/api
+    #links:
+    #- front
+  front:
+    build: Narwhal.Front
+    ports:
+    - "80:80"
+    environment:
+    - SERVICE_HOST=service
+    - SERVICE_PORT=80
+    - APP_HOST=app
+    - APP_PORT=80
+    links:
+    - service
+    - app
+
+  # importer:
+  #   build: Narwhal.Importer
+  #   volumes:
+  #   - .\Playground\Storage:/data
+
+  # etl:
+  #   build: Narwhal.ETL
+  #   volumes:
+  #   - .\Playground\Storage:/data
+  #   links:
+  #   - database
+  #   - messaging

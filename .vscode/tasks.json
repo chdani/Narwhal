@@ -1,0 +1,86 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "Narwhal.Front (Local)",
+            "type": "shell",
+            "command": "Narwhal.Front\\start_local.bat"
+        },
+        {
+            "label": "Narwhal.Database (Local)",
+            "type": "shell",
+            "command": "Narwhal.Database\\start_local.bat"
+        },
+        {
+            "label": "Narwhal.Messaging (Local)",
+            "type": "shell",
+            "command": "Narwhal.Messaging\\start_local.bat"
+        },
+        {
+            "label": "Narwhal.Importer (Local)",
+            "type": "shell",
+            "command": "Narwhal.Importer\\start_local.bat"
+        },
+        {
+            "label": "Narwhal.ETL (Local)",
+            "type": "shell",
+            "command": "Narwhal.ETL\\start_local.bat"
+        },
+        {
+            "label": "Narwhal.App (Local)",
+            "type": "shell",
+            "command": "Narwhal.App\\start_local.bat"
+        },
+        {
+            "label": "Narwhal.Service (Local)",
+            "type": "shell",
+            "command": "Narwhal.Service\\start_local.bat"
+        },
+        {
+            "label": "Narwhal.Tests (Local)",
+            "type": "shell",
+            "command": "Narwhal.Tests\\start_local.bat"
+        },
+
+        {
+            "label": "Narwhal.Front (Docker)",
+            "type": "shell",
+            "command": "Narwhal.Front\\start_docker.bat"
+        },
+        {
+            "label": "Narwhal.Database (Docker)",
+            "type": "shell",
+            "command": "Narwhal.Database\\start_docker.bat"
+        },
+        {
+            "label": "Narwhal.Messaging (Docker)",
+            "type": "shell",
+            "command": "Narwhal.Messaging\\start_docker.bat"
+        },
+        {
+            "label": "Narwhal.Importer (Docker)",
+            "type": "shell",
+            "command": "Narwhal.Importer\\start_docker.bat"
+        },
+        {
+            "label": "Narwhal.ETL (Docker)",
+            "type": "shell",
+            "command": "Narwhal.ETL\\start_docker.bat"
+        },
+        {
+            "label": "Narwhal.App (Docker)",
+            "type": "shell",
+            "command": "Narwhal.App\\start_docker.bat"
+        },
+        {
+            "label": "Narwhal.Service (Docker)",
+            "type": "shell",
+            "command": "Narwhal.Service\\start_docker.bat"
+        },
+        {
+            "label": "Narwhal.Tests (Docker)",
+            "type": "shell",
+            "command": "Narwhal.Tests\\start_docker.bat"
+        }
+    ]
+}

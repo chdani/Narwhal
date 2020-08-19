@@ -1,0 +1,35 @@
+{
+	"name": "narwhall-app",
+	"version": "1.0.0",
+	"description": "Frontend of Narwhall platform",
+	"scripts": {
+		"start": "ng serve --host 127.0.0.1 --port 6162",
+		"build": "ng build",
+		"publish": "ng build --aot=true --prod=true"
+	},
+	"dependencies": {
+		"@angular/common": "~8.2.14",
+		"@angular/compiler": "~8.2.14",
+		"@angular/core": "~8.2.14",
+		"@angular/platform-browser": "~8.2.14",
+		"@angular/platform-browser-dynamic": "~8.2.14",
+		"tslib": "^1.10.0",
+		"zone.js": "~0.9.1",
+		"mapbox-gl": "^1.6.1",
+		"three": "^0.109.0"
+	},
+	"devDependencies": {
+		"@angular-devkit/build-angular": "~0.803.23",
+		"@angular/cli": "~8.3.23",
+		"@angular/compiler-cli": "~8.2.14",
+		"@angular/language-service": "~8.2.14",
+		"@types/node": "~8.9.4",
+		"@types/mapbox-gl": "^1.6.3",
+		"@types/three": "^0.103.2",
+		"codelyzer": "^5.0.0",
+		"protractor": "~5.4.0",
+		"ts-node": "~7.0.0",
+		"tslint": "~5.15.0",
+		"typescript": "~3.5.3"
+	}
+}

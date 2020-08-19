@@ -1,0 +1,7 @@
+.vs/
+**/obj
+*.user
+Playground/
+Narwhal.Service/bin/
+logs/
+temp/

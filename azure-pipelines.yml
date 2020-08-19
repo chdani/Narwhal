@@ -1,0 +1,38 @@
+trigger:
+- master
+
+pool:
+  vmImage: 'windows-latest'
+
+steps:
+- task: NuGetToolInstaller@1
+  displayName: Install NuGet tool
+
+- task: NuGetCommand@2
+  displayName: Restore NuGet packages
+  inputs:
+    command: 'restore'
+    restoreSolution: '*.sln'
+
+- task: VSBuild@1
+  displayName: Build ConfigurationChecker
+  inputs:
+    solution: '*.sln'
+    platform: 'Any CPU'
+    configuration: 'Release'
+    clean: true
+
+- task: CopyFiles@2
+  displayName: Prepare artifacts
+  inputs:
+    SourceFolder: 'ConfigurationChecker\bin\Release'
+    Contents: '**'
+    TargetFolder: '$(Build.ArtifactStagingDirectory)'
+    CleanTargetFolder: true
+
+- task: PublishBuildArtifacts@1
+  displayName: Upload artifacts
+  inputs:
+    PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+    ArtifactName: 'ConfigurationChecker'
+    publishLocation: 'Container'
