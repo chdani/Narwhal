@@ -1,112 +1,63 @@
-# How to contribute?
+<p align="center">
+    <img width="96" src="./icon.png" />
+</p>
 
-Thank you for your interest in this project. This document was written to provide some guidelines for you to contribute
+# Narwhal
 
+This repository contains a miniature version of the infrastructure we run in OneOcean. We use this repo as a test during our hiring process.
 
+It is a full web application, displaying a world map, and showing points where [Navigational Warning](https://www.ccg-gcc.gc.ca/mcts-sctm/navwarn-avnav-ca-eng.html) from [France](https://gan.shom.fr/diffusion/home) are emitted.
 
+<p align="center">
+    <img width="560" src="./screenshot.png" />
+</p>
 
+The goal is to provide a test canvas for any candidate to ask various tasks and questions while staying close enough to our real world needs.
+It contains 8 different components, using multiple applications, tools and languages.
 
+This test framework is valid for any technical position, as it includes some infrastructure, web services, front-end application, ETL pipelines and more.
 
-We love your input! We want to make contributing to this project as easy and transparent as possible, whether it's:
 
-- Reporting a bug
-- Discussing the current state of the code
-- Submitting a fix
-- Proposing new features
-- Becoming a maintainer
+## Structure
 
-## Open Collaboration Committee
+- **Narwhal.App**: Web application, built with Angular. It sits behind the reverse proxy and communicates with the service to get information. It displays a world map and some
+- **Narwhal.Database**: A MongoDB storage used to store information collected through the ETL pipeline
+- **Narwhall.ETL**: A simple ETL pipeline written in Python, reads a text file to extract information and stores it in the database
+- **Narwhal.Front**: A reverse proxy sitting in fromt of all web endpoints, similar to a real infrastructure. Any application or service call will go through it. It uses Nginx
+- **Narwhal.Importer**: A Powershell script used to import the text based file for processing using the ETL pipeline
+- **Narwhal.Messaging**: A MQTT server (mosquitto) used to notify the service, and the application when new data is available
+- **Narwhal.Service**: An ASP.NET Core web service written in C#. It exposes the database information and reacts when new data is available
+- **Narwhal.Tests**: A test suite for this application, writte in Python
 
-This project was initially published by OneOcean. In order to maintain the quality of our open source projects and to help the community, we created a committee composed of OneOcean employees.
+Two scripts are available inside of every service directory:
+- **start_local.bat**: A batch used to quickly start the corresponding service locally on your machine
+- **start_docker.bat**: A batch used to build a Docker image and run it on your machine
 
-This **Open Collaboration Committee** is responsible for the communication with the community about any open publication, software project and data.
+Scripts with the same name are available in the root directory to run the full service stack at once. Please note that the root **start_docker.bat** script will use Docker Compose.
 
-- A OneOcean employee will be responsible for his project
+<p align="center">
+    <img width="560" src="./Narwhal.drawio.png" />
+</p>
 
 
+## Requirements
 
+You will be able to run all the services only using Docker on your machine.
+As mentionned, we also provide a **docker-compose.yml** file.
 
-## Bug report / Feature request
+To develop on this application locally, you will need:
+- **Powershell** to run **Narwhal.Importer**
+- **Python** to run **Narwhal.ETL** and **Narwhal.Tests**
+- **.NET Core 3.1** to run **Narwhal.Service**
+- **NodeJS** to run **Narwhal.App**
 
+Even though the scripts are only provided in .bat files, the services should not be platform dependent and should be usable on Linux or Mac.
 
 
+## Attribution
 
-
-## Contributions
-
-We acept contributions using Pull Requests. Please consider the following elements:
-
-
-
-Checklist:
-
-- Testing
-- Documentation
-- Code quality
-
-
-
-Please send a [GitHub Pull Request to opengovernment](https://github.com/opengovernment/opengovernment/pull/new/master) with a clear list of what you've done (read more about [pull requests](http://help.github.com/pull-requests/)). 
-
-
-
-
-
-
-
-
-## Coding conventions
-
-Start reading our code and you'll get the hang of it. We optimize for readability:
-
-  * We indent using two spaces (soft tabs)
-  * We use HAML for all views
-  * We avoid logic in views, putting HTML generators into helpers
-  * We ALWAYS put spaces after list items and method parameters (`[1, 2, 3]`, not `[1,2,3]`), around operators (`x += 1`, not `x+=1`), and around hash arrows.
-  * This is open source software. Consider the people who will read your code, and make it look nice for them. It's sort of like driving a car: Perhaps you love doing donuts when you're alone, but with passengers the goal is to make the ride as smooth as possible.
-  * So that we can consistently serve images from the CDN, always use image_path or image_tag when referring to images. Never prepend "/images/" when using image_path or image_tag.
-  * Also for the CDN, always use cwd-relative paths rather than root-relative paths in image URLs in any CSS. So instead of url('/images/blah.gif'), use url('../images/blah.gif').
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-## Testing
-
-We have a handful of Cucumber features, but most of our testbed consists of RSpec examples. Please write RSpec examples for new code you create.
-
-## Submitting changes
-
-Please send a [GitHub Pull Request to opengovernment](https://github.com/opengovernment/opengovernment/pull/new/master) with a clear list of what you've done (read more about [pull requests](http://help.github.com/pull-requests/)). When you send a pull request, we will love you forever if you include RSpec examples. We can always use more test coverage. Please follow our coding conventions (below) and make sure all of your commits are atomic (one feature per commit).
-
-Always write a clear log message for your commits. One-line messages are fine for small changes, but bigger changes should look like this:
-
-    $ git commit -m "A brief summary of the commit
-    > 
-    > A paragraph describing what changed and its impact."
-
-## Coding conventions
-
-Start reading our code and you'll get the hang of it. We optimize for readability:
-
-  * We indent using two spaces (soft tabs)
-  * We use HAML for all views
-  * We avoid logic in views, putting HTML generators into helpers
-  * We ALWAYS put spaces after list items and method parameters (`[1, 2, 3]`, not `[1,2,3]`), around operators (`x += 1`, not `x+=1`), and around hash arrows.
-  * This is open source software. Consider the people who will read your code, and make it look nice for them. It's sort of like driving a car: Perhaps you love doing donuts when you're alone, but with passengers the goal is to make the ride as smooth as possible.
-  * So that we can consistently serve images from the CDN, always use image_path or image_tag when referring to images. Never prepend "/images/" when using image_path or image_tag.
-  * Also for the CDN, always use cwd-relative paths rather than root-relative paths in image URLs in any CSS. So instead of url('/images/blah.gif'), use url('../images/blah.gif').
-
-Thanks,
-Carl Tashian, Participatory Politics Foundation
+- Icon by [Freepik](https://www.flaticon.com/authors/freepik) from [www.flaticon.com](https://www.flaticon.com/)
+- MongoDB downloaded from [www.mongodb.com](https://www.mongodb.com/try/download/community)
+- Nginx downloaded from [nginx.org](http://nginx.org/en/download.html)
+- Mosquitto downloaded from [mosquitto.org](https://mosquitto.org/download/)
+- Fart downloaded from [sourceforge.net/projects/fart-it](https://sourceforge.net/projects/fart-it/)
