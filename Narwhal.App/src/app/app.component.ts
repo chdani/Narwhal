@@ -96,8 +96,11 @@ export class AppComponent implements OnInit {
                 type: 'circle',
                 source: 'navwarnings-source',
                 paint: {
-                    'circle-radius': 6,
-                    'circle-color': '#007cbf'
+                    'circle-radius': 4,
+                    'circle-color': '#007cbf',
+                    'circle-stroke-color': "#ffffff",
+                    'circle-stroke-width': 1,
+                    'circle-stroke-opacity': 0.5
                 }
             });
 
@@ -113,6 +116,101 @@ export class AppComponent implements OnInit {
 
                     this.getSource('navwarnings-source').setData(geoJson);
                 });
+        });
+
+        // *******************************************************************
+        // Tracking source
+        // *******************************************************************
+
+        this.map.on('load', function() {
+
+            this.addSource('tracking-source', {
+                type: 'geojson',
+                data: {
+                    type: 'FeatureCollection',
+                    features: []
+                }
+            });
+
+            this.addLayer({
+                id: 'tracking-layer',
+                type: 'line',
+                source: 'tracking-source',
+                paint: {
+                    'line-width': 2,
+                    'line-color': [ 'get', 'color' ]
+                }
+            });
+
+            this.addLayer({
+                id: 'tracking-points-layer',
+                type: 'circle',
+                source: 'tracking-source',
+                paint: {
+                    'circle-radius': 3.5,
+                    'circle-color': [ 'get', 'color' ],
+                    'circle-stroke-color': "#000000",
+                    'circle-stroke-width': 1,
+                    'circle-stroke-opacity': 0.5
+                }
+            });
+
+            var groupBy = function(xs, key) {
+                return xs.reduce(function(rv, x) {
+                    (rv[x[key]] = rv[x[key]] || []).push(x);
+                    return rv;
+                }, {});
+            };
+
+            fetch('/api/tracking/get?from=2018-04-23&to=2018-04-24')
+                .then(response => response.json())
+                .then(data => {
+                    data = groupBy(data, 'vessel');
+
+                    let lines = []
+
+                    for (const [vessel, points] of Object.entries(data)) {
+                        lines.push({
+                            "type" : "Feature",
+                            "properties": {
+                                "color": "hsl(" + (((vessel as any) * 1) % 255) + ", 50%, 50%)",
+                                "description": "Vessel " + vessel
+                            },
+                            "geometry" : {
+                                "type" : "LineString",
+                                "coordinates" : (points as any).map(p => [ p.longitude, p.latitude ])
+                            }
+                        });
+                    }
+
+                    var geoJson = {
+                        'type': 'FeatureCollection',
+                        'features': lines
+                    };
+
+                    this.getSource('tracking-source').setData(geoJson);
+                });
+
+            var popup = new mapboxgl.Popup({
+                closeButton: false,
+                closeOnClick: false
+            });
+                
+            this.on('mouseenter', 'tracking-points-layer', function (e) {
+                // Change the cursor style as a UI indicator.
+                this.getCanvas().style.cursor = 'pointer';
+                    
+                var description = e.features[0].properties.description;
+
+                // Populate the popup and set its coordinates
+                // based on the feature found.
+                popup.setLngLat(e.lngLat).setHTML(description).addTo(this);
+            });
+                
+            this.on('mouseleave', 'tracking-points-layer', function () {
+                this.getCanvas().style.cursor = '';
+                popup.remove();
+            });
         });
     }
 }

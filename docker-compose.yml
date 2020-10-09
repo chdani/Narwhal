@@ -23,7 +23,7 @@ services:
   app:
     build: Narwhal.App
     ports:
-    - "6162:6162"
+    - "6162:80"
     environment:
     - SERVICE_URL=http://front/api
     #links:

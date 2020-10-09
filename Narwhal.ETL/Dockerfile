@@ -10,5 +10,7 @@ VOLUME /data
 
 ENV DATABASE_URL=mongodb://1.2.3.4
 
-COPY process.py .
-CMD python process.py
+COPY process_navwarnings.py .
+COPY process_tracking.py .
+
+CMD python process_navwarnings.py && python process_tracking.py
