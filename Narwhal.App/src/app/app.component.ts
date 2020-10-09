@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 
 import * as mapboxgl from 'mapbox-gl';
 
@@ -8,14 +8,13 @@ import * as mapboxgl from 'mapbox-gl';
     styleUrls: ['./app.component.scss']
 })
 
-export class AppComponent {
+export class AppComponent implements OnInit {
 
     map: mapboxgl.Map;
     hardwareRendering = mapboxgl.supported({ failIfMajorPerformanceCaveat: true });
 
     ngOnInit() {
-
-        let mapboxOptions : mapboxgl.MapboxOptions = {
+        const mapboxOptions: mapboxgl.MapboxOptions = {
             container: 'map',
             style: {
                 version: 8,
@@ -24,11 +23,11 @@ export class AppComponent {
                 },
                 layers: [
                     {
-                        'id': 'osm-layer',
-                        'type': 'raster',
-                        'source': 'osm-source',
-                        'minzoom': 0,
-                        'maxzoom': 22
+                        id: 'osm-layer',
+                        type: 'raster',
+                        source: 'osm-source',
+                        minzoom: 0,
+                        maxzoom: 22
                     }
                 ],
             },
@@ -39,20 +38,21 @@ export class AppComponent {
 
         mapboxOptions.center = [ 0, 30 ];
         mapboxOptions.zoom = 2;
-        
+
         // *******************************************************************
         // Mapbox GL initialization
         // *******************************************************************
 
         this.map = new mapboxgl.Map(mapboxOptions);
         this.map.addControl(new mapboxgl.NavigationControl());
-        
+
         this.map.on('mousemove', (e: mapboxgl.MapMouseEvent) => {
             const level = Math.floor(e.target.getZoom());
             const divider = Math.pow(2, level);
 
             const resultX = (e.lngLat.lng + 180) / (360 / divider);
-            const resultY = (1 - Math.log(Math.tan(e.lngLat.lat * Math.PI / 180) + 1 / Math.cos(e.lngLat.lat * Math.PI / 180)) / Math.PI) / 2 * divider;
+            const resultY = (1 - Math.log(Math.tan(e.lngLat.lat * Math.PI / 180) + 1 /
+				Math.cos(e.lngLat.lat * Math.PI / 180)) / Math.PI) / 2 * divider;
             const resultScale = 500000000 / Math.pow(2, level + 1);
 
             document.getElementById('info').innerHTML =
@@ -84,18 +84,18 @@ export class AppComponent {
         this.map.on('load', function() {
 
             this.addSource('navwarnings-source', {
-                'type': 'geojson',
-                'data': {
-                    'type': 'FeatureCollection',
-                    'features': []
+                type: 'geojson',
+                data: {
+                    type: 'FeatureCollection',
+                    features: []
                 }
             });
 
             this.addLayer({
-                'id': 'navwanings-layer',
-                'type': 'circle',
-                'source': 'navwarnings-source',
-                'paint': {
+                id: 'navwanings-layer',
+                type: 'circle',
+                source: 'navwarnings-source',
+                paint: {
                     'circle-radius': 6,
                     'circle-color': '#007cbf'
                 }
@@ -106,9 +106,9 @@ export class AppComponent {
                 .then(data => {
                     data = data.map(d => d.data);
 
-                    var geoJson = {
-                        'type': 'FeatureCollection',
-                        'features': data
+                    const geoJson = {
+                        type: 'FeatureCollection',
+                        features: data
                     };
 
                     this.getSource('navwarnings-source').setData(geoJson);
