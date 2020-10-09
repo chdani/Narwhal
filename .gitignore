@@ -5,3 +5,5 @@ Playground/
 Narwhal.Service/bin/
 logs/
 temp/
+.idea/
+*.iml
