@@ -5,17 +5,38 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "Narwhal.Importer",
+            "name": "Narwhal.App",
+            "type": "chrome",
+            "request": "launch",
+            "url": "http://127.0.0.1",
+            "webRoot": "${workspaceFolder}\\Narwhal.App"
+        },
+        {
+            "name": "Narwhal.Importer - Navwarnings",
             "type": "PowerShell",
             "request": "launch",
-            "script": "${workspaceFolder}\\Narwhal.Importer\\import.ps1",
+            "script": "${workspaceFolder}\\Narwhal.Importer\\import_navwarnings.ps1",
             "cwd": "${workspaceFolder}"
         },
         {
-            "name": "Narwhal.ETL",
+            "name": "Narwhal.Importer - Tracking",
+            "type": "PowerShell",
+            "request": "launch",
+            "script": "${workspaceFolder}\\Narwhal.Importer\\import_tracking.ps1",
+            "cwd": "${workspaceFolder}"
+        },
+        {
+            "name": "Narwhal.ETL - Navwarnings",
             "type": "python",
             "request": "launch",
-            "program": "${workspaceFolder}\\Narwhal.ETL\\process.py",
+            "program": "${workspaceFolder}\\Narwhal.ETL\\process_navwarnings.py",
+            "console": "integratedTerminal"
+        },
+        {
+            "name": "Narwhal.ETL - Tracking",
+            "type": "python",
+            "request": "launch",
+            "program": "${workspaceFolder}\\Narwhal.ETL\\process_tracking.py",
             "console": "integratedTerminal"
         }
     ]

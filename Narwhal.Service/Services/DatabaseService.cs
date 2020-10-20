@@ -50,5 +50,7 @@ namespace Narwhal.Service.Services
         }
 
         public IMongoCollection<BsonDocument> GetNavWarningCollection() => mongoClient.GetDatabase("narwhal").GetCollection<BsonDocument>("navwarnings");
+        public IMongoCollection<BsonDocument> GetTrackingCollection() => mongoClient.GetDatabase("narwhal").GetCollection<BsonDocument>("tracking");
+        public IMongoCollection<BsonDocument> GetEventsCollection() => mongoClient.GetDatabase("narwhal").GetCollection<BsonDocument>("events");
     }
 }
