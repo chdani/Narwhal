@@ -6,6 +6,7 @@ if not exist "logs" mkdir logs
 if not exist "temp" mkdir temp
 
 copy /Y %~dp0\nginx.conf.template temp\nginx.conf
+copy /Y %~dp0\nginx-1.18.0\conf\mime.types temp\mime.types
 
 %~dp0\fart199b_win64\fart.exe temp\nginx.conf "${SERVICE_HOST}" "127.0.0.1"
 %~dp0\fart199b_win64\fart.exe temp\nginx.conf "${SERVICE_PORT}" "6161"
