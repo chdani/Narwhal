@@ -4,7 +4,6 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
-using Narwhal.Service.Hubs;
 using Narwhal.Service.Services;
 
 namespace Narwhal.Service
@@ -43,7 +42,6 @@ namespace Narwhal.Service
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
-                endpoints.MapHub<UpdateHub>("/updatehub");
             });
 
             // Debug gadget
