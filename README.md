@@ -90,6 +90,8 @@ Below is the list of used ports. Work needs to be done in order to modify the po
 
 ## Attribution
 
+The MIT licensing is not applicable to the following resources, as they are considered as external resources with their own licensing available in the links below.
+
 - Icon by [Freepik](https://www.flaticon.com/authors/freepik) from [flaticon.com](https://www.flaticon.com/)
 - MongoDB downloaded from [mongodb.com](https://www.mongodb.com/try/download/community)
 - Nginx downloaded from [nginx.org](http://nginx.org/en/download.html)
