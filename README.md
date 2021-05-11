@@ -10,6 +10,10 @@ It is a full web application, displaying a world map, and showing points where [
 
 <p align="center">
     <img width="560" src="./screenshot-1.png" />
+</p>
+
+Also, the api call /tracking/get provides a list of vessels positions in the system.
+<p align="center">
     <img width="560" src="./screenshot-2.png" />
 </p>
 
