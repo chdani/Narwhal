@@ -34,7 +34,8 @@ namespace Narwhal.Service
             {
                 app.UseDeveloperExceptionPage();
             }
-
+            app
+    .UseCors(option => { option.WithOrigins("*").AllowAnyMethod().AllowAnyHeader(); });
             app.UseRouting();
 
             app.UseAuthorization();
@@ -46,6 +47,9 @@ namespace Narwhal.Service
 
             // Debug gadget
             app.Use(r => c => r(c));
+
+
+
         }
     }
 }

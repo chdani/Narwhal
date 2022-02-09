@@ -113,7 +113,7 @@ def main():
     database = client.narwhal
     trackingCollection = database.tracking
 
-    trackingCollection.remove({})
+    # trackingCollection.remove({})
     for trackingPoint in trackingPoints:
         trackingCollection.insert_one(trackingPoint)
 

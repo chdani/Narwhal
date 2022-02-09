@@ -14,6 +14,7 @@ using MongoDB.Driver;
 using Narwhal.Service.Models;
 using Narwhal.Service.Services;
 
+
 namespace Narwhal.Service.Controllers
 {
     [ApiController]
@@ -36,9 +37,13 @@ namespace Narwhal.Service.Controllers
 
         [HttpGet("Get")]
         public IEnumerable<NavWarning> Get(int limit = 100)
-        {
+        { 
+
             var navWarningCollection = _databaseService.GetNavWarningCollection();
+
+
             var eventsCollection = _databaseService.GetEventsCollection();
+          
 
             eventsCollection.InsertOne(new BsonDocument()
             {

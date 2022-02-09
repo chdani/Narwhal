@@ -104,7 +104,7 @@ export class AppComponent implements OnInit {
                 }
             });
 
-            fetch('/api/navwarnings/get')
+            fetch('http://127.0.0.1:6161/navwarnings/get')
                 .then(response => response.json())
                 .then(data => {
                     data = data.map(d => d.data);
@@ -162,19 +162,26 @@ export class AppComponent implements OnInit {
                 }, {});
             };
 
-            fetch('/api/tracking/get?from=2018-04-23&to=2018-04-24')
+            fetch('http://127.0.0.1:6161/tracking/get?from=2018-04-23&to=2018-04-24')
                 .then(response => response.json())
                 .then(data => {
                     data = groupBy(data, 'vessel');
 
                     let lines = []
 
+                  
+
+
                     for (const [vessel, points] of Object.entries(data)) {
+ 
+                        
+                       
                         lines.push({
                             "type" : "Feature",
                             "properties": {
                                 "color": "hsl(" + (((vessel as any) * 1) % 255) + ", 50%, 50%)",
-                                "description": "Vessel " + vessel
+                                "description": "Vessel: " + vessel + "<br> Total Distance: "+(Number(points[points.length-1].totalDistance).toFixed(2))+ " km<br> Average Speed: "+ (Number(points[points.length-1].avgSpeed).toFixed(2))+" kt "
+
                             },
                             "geometry" : {
                                 "type" : "LineString",

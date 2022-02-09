@@ -80,7 +80,7 @@ def main():
     database = client.narwhal
     navwarningCollection = database.navwarnings
 
-    navwarningCollection.remove({})
+    # navwarningCollection.remove({})
     for navwarning in navwarnings:
         navwarningCollection.insert_one(navwarning)
 
