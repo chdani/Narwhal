@@ -174,13 +174,13 @@ export class AppComponent implements OnInit {
 
                     for (const [vessel, points] of Object.entries(data)) {
  
-                        
+                        const VesselData = <Array<any>>points;
                        
                         lines.push({
                             "type" : "Feature",
                             "properties": {
                                 "color": "hsl(" + (((vessel as any) * 1) % 255) + ", 50%, 50%)",
-                                "description": "Vessel: " + vessel + "<br> Total Distance: "+(Number(points[points.length-1].totalDistance).toFixed(2))+ " km<br> Average Speed: "+ (Number(points[points.length-1].avgSpeed).toFixed(2))+" kt "
+                                "description": "Vessel: " + vessel + "<br> Total Distance: "+(Number(VesselData[VesselData.length-1].totalDistance).toFixed(2))+ " NM<br> Average Speed: "+ (Number(VesselData[VesselData.length-1].avgSpeed).toFixed(2))+" kt "
 
                             },
                             "geometry" : {
